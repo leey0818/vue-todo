@@ -4,11 +4,11 @@
       type="text"
       append-icon="fa-plus"
       class="mb-3"
+      outlined
+      hide-details
       v-model="newItem"
       @click:append="addTodo"
       @keypress.enter="addTodo"
-      outlined
-      hide-details
     ></v-text-field>
   </div>
 </template>
@@ -18,14 +18,12 @@ export default {
   data() {
     return {
       newItem: '',
-      items: [],
     };
   },
   methods: {
     addTodo() {
       if (this.newItem) {
-        const itemObj = { text: this.newItem, completed: false };
-        window.sessionStorage.setItem(this.newItem, JSON.stringify(itemObj));
+        this.$emit('addItem', this.newItem);
         this.clearInput();
       }
     },

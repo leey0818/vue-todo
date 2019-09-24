@@ -10,7 +10,7 @@
 export default {
   methods: {
     clearAll() {
-      window.sessionStorage.clear();
+      this.$emit('clearAll');
     },
   },
 };
