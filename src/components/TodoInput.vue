@@ -4,9 +4,11 @@
       type="text"
       append-icon="fa-plus"
       class="mb-3"
+      placeholder="Input your todos."
+      autofocus
       outlined
       hide-details
-      v-model="newItem"
+      v-model.trim="newItem"
       @click:append="addTodo"
       @keypress.enter="addTodo"
     ></v-text-field>
