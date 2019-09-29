@@ -31,19 +31,19 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex';
+
 export default {
   computed: {
-    items() {
-      return this.$store.state.todoItems;
-    },
+    ...mapState({
+      items: 'todoItems',
+    }),
   },
   methods: {
-    removeItem(index) {
-      this.$store.commit('removeItem', index);
-    },
-    toggleItem(index) {
-      this.$store.commit('toggleItem', index);
-    },
+    ...mapMutations([
+      'removeItem',
+      'toggleItem',
+    ]),
     beforeLeave(el) {
       el.style.width = `${el.offsetWidth}px`;
     },
