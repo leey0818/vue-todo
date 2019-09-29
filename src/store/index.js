@@ -1,46 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import storage from '../utils/storage';
 
 Vue.use(Vuex);
-
-const storage = {
-  fetch() {
-    const items = [];
-
-    if (window.sessionStorage.length) {
-      for (let i = 0; i < window.sessionStorage.length; i++) {
-        const key = window.sessionStorage.key(i);
-        const item = this.get(key);
-
-        if (item) {
-          items.push(item);
-        }
-      }
-    }
-
-    return items;
-  },
-  get(key) {
-    let item;
-
-    try {
-      item = JSON.parse(window.sessionStorage.getItem(key));
-    } catch (e) {
-      item = null;
-    }
-
-    return item;
-  },
-  put(key, obj) {
-    window.sessionStorage.setItem(key, JSON.stringify(obj));
-  },
-  remove(key) {
-    window.sessionStorage.removeItem(key);
-  },
-  clear() {
-    window.sessionStorage.clear();
-  },
-};
 
 export default new Vuex.Store({
   state: {
@@ -58,7 +20,10 @@ export default new Vuex.Store({
     },
     removeItem(state, index) {
       const item = state.todoItems.splice(index, 1);
-      storage.remove(item.text);
+
+      if (item.length) {
+        storage.remove(item[0].text);
+      }
     },
     toggleItem(state, index) {
       const item = state.todoItems[index];
