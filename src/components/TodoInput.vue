@@ -25,12 +25,9 @@ export default {
   methods: {
     addTodo() {
       if (this.newItem) {
-        this.$emit('addItem', this.newItem);
-        this.clearInput();
+        this.$store.dispatch('addItem', this.newItem);
+        this.newItem = '';
       }
-    },
-    clearInput() {
-      this.newItem = '';
     },
   },
 };

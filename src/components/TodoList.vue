@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-item-group class="text-left py-3">
-      <v-item v-for="(item, index) in items" :key="`item-${index}`">
+      <v-item v-for="(item, index) in items" :key="`item-${item.id}`">
         <v-card class="mb-3">
           <v-list-item class="pr-1" @click="toggleItem(index)">
             <v-list-item-action class="mr-1">
@@ -30,15 +30,17 @@
 
 <script>
 export default {
-  props: {
-    items: Array,
+  computed: {
+    items() {
+      return this.$store.state.todoItems;
+    },
   },
   methods: {
     removeItem(index) {
-      this.$emit('removeItem', index);
+      this.$store.commit('removeItem', index);
     },
     toggleItem(index) {
-      this.$emit('toggleItem', index);
+      this.$store.commit('toggleItem', index);
     },
   },
 };
